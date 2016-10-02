@@ -36,6 +36,16 @@ namespace SQLConnector
 				SortedSet<MedicalEquipment> medicalEquipments = sqlConnector.getMedicalEquipments(myCommand);
 				Console.WriteLine(result);
 
+				result = sqlConnector.getExaminationTypesString(myCommand);
+				SortedSet<ExaminationType> examinationTypes = sqlConnector.getExaminationTypes(myCommand);
+				Console.WriteLine(result);
+
+				result = sqlConnector.getProtocolsString(myCommand);
+				SortedSet<Protocol> protocols = sqlConnector.getProtocols(myCommand);
+				Console.WriteLine(result);
+
+
+
 				myConnection.Close(); //Обязательно закрываем соединение!
 				myConnection.Dispose();
 			}

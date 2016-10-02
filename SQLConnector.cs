@@ -124,5 +124,70 @@ namespace SQLConnector
 			}
 			return setMedicalEquipments;
 		}
+
+		public string getExaminationTypesString(SqlCommand command)
+		{
+			string result = "";
+			command.CommandText = "SELECT * FROM Tbl_ExaminationTypes;";
+
+			using (SqlDataReader reader = command.ExecuteReader())
+			{
+				while (reader.Read())
+				{
+					result += reader[0].ToString() + " | " + reader[1].ToString() + "\n";
+				}
+			}
+			return result;
+		}
+
+		public SortedSet<ExaminationType> getExaminationTypes(SqlCommand command)
+		{
+			SortedSet<ExaminationType> setMedicalEquipments = new SortedSet<ExaminationType>();
+
+			command.CommandText = "SELECT * FROM Tbl_ExaminationTypes;";
+
+			using (SqlDataReader reader = command.ExecuteReader())
+			{
+				while (reader.Read())
+				{
+					setMedicalEquipments.Add(new ExaminationType(Int32.Parse(reader[0].ToString()), reader[1].ToString()));
+				}
+			}
+			return setMedicalEquipments;
+		}
+
+		public string getProtocolsString(SqlCommand command)
+		{
+			string result = "";
+			command.CommandText = "SELECT * FROM Tbl_Protocols;";
+
+			using (SqlDataReader reader = command.ExecuteReader())
+			{
+				while (reader.Read())
+				{
+					result += reader[0].ToString() + " | " + reader[1].ToString() + " | " +
+						reader[3].ToString() + " | " + reader[4].ToString() + " | " + reader[5].ToString() + " | " + reader[6].ToString() + "\n";
+				}
+			}
+			return result;
+		}
+
+		public SortedSet<Protocol> getProtocols(SqlCommand command)
+		{
+			SortedSet<Protocol> setProtocols = new SortedSet<Protocol>();
+
+			command.CommandText = "SELECT * FROM Tbl_Protocols;";
+
+			using (SqlDataReader reader = command.ExecuteReader())
+			{
+				while (reader.Read())
+				{
+					setProtocols.Add(new Protocol(Int32.Parse(reader[0].ToString()), reader[1].ToString(), reader[2].ToString(),
+						Int32.Parse(reader[3].ToString()), Int32.Parse(reader[4].ToString()), Int32.Parse(reader[5].ToString()),
+						reader[6].ToString()));
+				}
+			}
+			return setProtocols;
+		}
 	}
 }
