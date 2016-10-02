@@ -44,7 +44,8 @@ namespace SQLConnector
 				SortedSet<Protocol> protocols = sqlConnector.getProtocols(myCommand);
 				Console.WriteLine(result);
 
-
+				result = sqlConnector.getRandomTableString(myCommand, "Tbl_Doctors", "dct_fullname LIKE '%Valeriy%'");
+				Console.WriteLine(result);
 
 				myConnection.Close(); //Обязательно закрываем соединение!
 				myConnection.Dispose();

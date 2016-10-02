@@ -10,21 +10,20 @@ namespace SQLConnector
 	class SQLConnector
 	{
 
-		public string getRandomTableString(SqlCommand command)
+		public string getRandomTableString(SqlCommand command, string tableName, string param)
 		{
-			string tableName = "Tbl_Gender";
 			string result = "";
-			command.CommandText = "SELECT * FROM " + tableName + ";";
+			command.CommandText = "SELECT * FROM " + tableName + "\nWHERE " + param + ";";
 
 			using (SqlDataReader reader = command.ExecuteReader())
 			{
 				while (reader.Read())
 				{
-					for (int i = 0; i < reader.FieldCount; ++i)
+					for (int i = 0; i < reader.FieldCount - 1; ++i)
 					{
-						result += reader[i].ToString() + " ";
+						result += reader[i].ToString() + " | ";
 					}
-					result += "\n";
+					result += reader[reader.FieldCount - 1].ToString() + "\n";
 				}
 			}
 			return result;
