@@ -39,11 +39,7 @@ namespace SQLConnector
 			{
 				while (reader.Read())
 				{
-					for (int i = 0; i < reader.FieldCount; ++i)
-					{
-						result += reader[i].ToString() + " ";
-					}
-					result += "\n";
+					result += reader[0].ToString() + " | " + reader[1].ToString() + " | " + reader[2].ToString() + "\n";
 				}
 			}
 			return result;
@@ -74,11 +70,8 @@ namespace SQLConnector
 			{
 				while (reader.Read())
 				{
-					for (int i = 0; i < reader.FieldCount; ++i)
-					{
-						result += reader[i].ToString() + " ";
-					}
-					result += "\n";
+					result += reader[0].ToString() + " | " + reader[1].ToString() + " | " + reader[2].ToString() + " | " +
+						reader[3].ToString() + " | " + reader[4].ToString() + "\n";
 				}
 			}
 			return result;
@@ -99,6 +92,37 @@ namespace SQLConnector
 				}
 			}
 			return setPatients;
+		}
+
+		public string getMedicalEquipmentsString(SqlCommand command)
+		{
+			string result = "";
+			command.CommandText = "SELECT * FROM Tbl_MedicalEquipments;";
+
+			using (SqlDataReader reader = command.ExecuteReader())
+			{
+				while (reader.Read())
+				{
+					result += reader[0].ToString() + " | " + reader[1].ToString() + "\n";
+				}
+			}
+			return result;
+		}
+
+		public SortedSet<MedicalEquipment> getMedicalEquipments(SqlCommand command)
+		{
+			SortedSet<MedicalEquipment> setMedicalEquipments = new SortedSet<MedicalEquipment>();
+
+			command.CommandText = "SELECT * FROM Tbl_MedicalEquipments;";
+
+			using (SqlDataReader reader = command.ExecuteReader())
+			{
+				while (reader.Read())
+				{
+					setMedicalEquipments.Add(new MedicalEquipment(Int32.Parse(reader[0].ToString()), reader[1].ToString()));
+				}
+			}
+			return setMedicalEquipments;
 		}
 	}
 }
