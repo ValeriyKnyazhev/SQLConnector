@@ -43,13 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseGenerator.cs" />
     <Compile Include="Doctor.cs" />
     <Compile Include="ExaminationType.cs" />
+    <Compile Include="InsertValuesHelper.cs" />
     <Compile Include="MedicalEquipment.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol.cs" />
+    <Compile Include="RandomUtil.cs" />
     <Compile Include="SQLConnector.cs" />
   </ItemGroup>
   <ItemGroup>

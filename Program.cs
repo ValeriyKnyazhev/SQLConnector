@@ -10,19 +10,41 @@ namespace SQLConnector
 	class Program
 	{
 
+		private static void addFields(string connectString,
+								string tableName,
+								IList<string> columnNames,
+								IList<IList<string>> values)
+		{
+			InsertValuesHelper.Insert(connectString,
+				tableName,
+				columnNames,
+				values);
+		}
+
 		static void Main(string[] args)
 		{
 			string login = "val_guest";
 
 			string Connect = "Data Source=VALERIYPC\\SQLEXPRESS; Integrated Security=SSPI; Initial Catalog=UltraSoundProtocolsDB; User=" + login + "; Password=hf94hd78";
+
 			string result = "";
-			try
-			{
+			try { 
 				SqlConnection myConnection = new SqlConnection(Connect);
 				SqlCommand myCommand = myConnection.CreateCommand();
 				myConnection.Open(); //Устанавливаем соединение с базой данных.
 
 				SQLConnector sqlConnector = new SQLConnector();
+
+				addFields(Connect,
+					DatabaseGenerator.DOCTORS_TABLE_NAME,
+					DatabaseGenerator.DOCTOR_COLUMN_NAMES,
+					DatabaseGenerator.GetDoctorTableValues(20));
+
+
+				addFields(Connect,
+					DatabaseGenerator.PATIENTS_TABLE_NAME,
+					DatabaseGenerator.PATIENT_COLUMN_NAMES,
+					DatabaseGenerator.GetPatientTableValues(100));
 
 				result = sqlConnector.getDoctorsString(myCommand);
 				SortedSet<Doctor> doctors = sqlConnector.getDoctors(myCommand);
